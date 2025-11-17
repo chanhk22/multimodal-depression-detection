@@ -1,11 +1,11 @@
 paths:
-  raw_root: /Users/2chanhyuk/Documents/data_raw   # 원본 보관(수정 금지)
+  raw_root: /cs/student/projects1/2023/chanlee/data_raw   # 원본 보관(수정 금지)
 
   daic_woz:
-    audio_dir: /Users/2chanhyuk/Documents/data_raw/Audio
-    transcript_dir: /Users/2chanhyuk/Documents/data_raw/transcript
-    features_dir:   /Users/2chanhyuk/Documents/data_raw/Features   # CLNF, COVAREP, FORMANT
-    labels_dir:     /Users/2chanhyuk/Documents/data_raw/labels
+    audio_dir: /cs/student/projects1/2023/chanlee/data_raw/Audio
+    transcript_dir: /cs/student/projects1/2023/chanlee/data_raw/transcript
+    features_dir:   /cs/student/projects1/2023/chanlee/data_raw/Features   # CLNF, COVAREP, FORMANT
+    labels_dir:     /cs/student/projects1/2023/chanlee/data_raw/labels
 
 outputs:
   processed_root: ./data/processed                       # 전처리/정렬 반영본
@@ -16,6 +16,6 @@ preprocessing:
 
 labels: 
   daic_woz:
-    train_split: /Users/2chanhyuk/Documents/data_raw/labels/train_split_Depression_AVEC2017.csv
-    dev_split: /Users/2chanhyuk/Documents/data_raw/labels/dev_split_Depression_AVEC2017.csv
-    test_split: /Users/2chanhyuk/Documents/data_raw/labels/full_test_split.csv
+    train_split: /cs/student/projects1/2023/chanlee/data_raw/labels/train_split_Depression_AVEC2017.csv
+    dev_split: /cs/student/projects1/2023/chanlee/data_raw/labels/dev_split_Depression_AVEC2017.csv
+    test_split: /cs/student/projects1/2023/chanlee/data_raw/labels/full_test_split.csv
