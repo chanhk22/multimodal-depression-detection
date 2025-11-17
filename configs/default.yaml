@@ -8,8 +8,8 @@ paths:
     labels_dir:     /cs/student/projects1/2023/chanlee/data_raw/labels
 
 outputs:
-  processed_root: ./data/processed                       # 전처리/정렬 반영본
-  cache_root:     ./data/cache   
+  processed_root: /cs/student/projects1/2023/chanlee/multimodal-depression-detection/data/processed                       # 전처리/정렬 반영본
+  cache_root:     /cs/student/projects1/2023/chanlee/multimodal-depression-detection/data/cache   
 
 preprocessing:
   ellie_regex: "(?i)hi\\s*i[' ]?m\\s*ellie" 
