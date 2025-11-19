@@ -589,8 +589,10 @@ class UnifiedWindowCacheBuilder:
                     
                     print(f"  Audio PCA: {audio_matrix.shape[1]} -> {n_comp} dims (ALL DATA)")
                 
-                # Add to dataframe
-                df_pca.loc[df['audio_raw'].notna(), 'audio_pca'] = list(audio_pca)
+                # Convert each row to list and assign
+                audio_pca_list = [row.tolist() for row in audio_pca]
+                df_pca.loc[df['audio_raw'].notna(), 'audio_pca'] = audio_pca_list
+                
                 self.pca_audio_model = {'scaler': scaler, 'pca': pca}
         
         # Visual PCA (same logic)
@@ -632,7 +634,10 @@ class UnifiedWindowCacheBuilder:
                     
                     print(f"  Visual PCA: {visual_matrix.shape[1]} -> {n_comp} dims (ALL DATA)")
                 
-                df_pca.loc[df['visual_raw'].notna(), 'visual_pca'] = list(visual_pca)
+                # Convert each row to list and assign
+                visual_pca_list = [row.tolist() for row in visual_pca]
+                df_pca.loc[df['visual_raw'].notna(), 'visual_pca'] = visual_pca_list
+                
                 self.pca_visual_model = {'scaler': scaler, 'pca': pca}
         
         return df_pca
