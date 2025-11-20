@@ -548,15 +548,17 @@ class UnifiedWindowCacheBuilder:
         
         # Audio PCA
         if 'audio_raw' in df.columns and self.pca_components.get('audio', 0) > 0:
-            audio_df = df[df['audio_raw'].notna()].copy()
+            # Get rows with audio data and preserve original index
+            audio_mask = df['audio_raw'].notna()
+            audio_indices = df[audio_mask].index
             
-            if len(audio_df) > 0:
+            if len(audio_indices) > 0:
                 # Prepare data
-                audio_matrix = np.vstack(audio_df['audio_raw'].values)
+                audio_matrix = np.vstack(df.loc[audio_indices, 'audio_raw'].values)
                 
                 # Fit scaler and PCA on train only
                 if fit_on_train_only:
-                    train_mask = audio_df['fold'] == 'train'
+                    train_mask = df.loc[audio_indices, 'fold'] == 'train'
                     train_data = audio_matrix[train_mask]
                     
                     if len(train_data) == 0:
@@ -589,21 +591,23 @@ class UnifiedWindowCacheBuilder:
                     
                     print(f"  Audio PCA: {audio_matrix.shape[1]} -> {n_comp} dims (ALL DATA)")
                 
-                # Convert each row to list and assign
-                audio_pca_list = [row.tolist() for row in audio_pca]
-                df_pca.loc[df['audio_raw'].notna(), 'audio_pca'] = audio_pca_list
+                # Assign PCA results using original indices
+                for i, idx in enumerate(audio_indices):
+                    df_pca.at[idx, 'audio_pca'] = audio_pca[i].tolist()
                 
                 self.pca_audio_model = {'scaler': scaler, 'pca': pca}
         
         # Visual PCA (same logic)
         if 'visual_raw' in df.columns and self.pca_components.get('visual', 0) > 0:
-            visual_df = df[df['visual_raw'].notna()].copy()
+            # Get rows with visual data and preserve original index
+            visual_mask = df['visual_raw'].notna()
+            visual_indices = df[visual_mask].index
             
-            if len(visual_df) > 0:
-                visual_matrix = np.vstack(visual_df['visual_raw'].values)
+            if len(visual_indices) > 0:
+                visual_matrix = np.vstack(df.loc[visual_indices, 'visual_raw'].values)
                 
                 if fit_on_train_only:
-                    train_mask = visual_df['fold'] == 'train'
+                    train_mask = df.loc[visual_indices, 'fold'] == 'train'
                     train_data = visual_matrix[train_mask]
                     
                     if len(train_data) == 0:
@@ -634,9 +638,9 @@ class UnifiedWindowCacheBuilder:
                     
                     print(f"  Visual PCA: {visual_matrix.shape[1]} -> {n_comp} dims (ALL DATA)")
                 
-                # Convert each row to list and assign
-                visual_pca_list = [row.tolist() for row in visual_pca]
-                df_pca.loc[df['visual_raw'].notna(), 'visual_pca'] = visual_pca_list
+                # Assign PCA results using original indices
+                for i, idx in enumerate(visual_indices):
+                    df_pca.at[idx, 'visual_pca'] = visual_pca[i].tolist()
                 
                 self.pca_visual_model = {'scaler': scaler, 'pca': pca}
         
