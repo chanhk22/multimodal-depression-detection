@@ -591,7 +591,10 @@ class UnifiedWindowCacheBuilder:
                     
                     print(f"  Audio PCA: {audio_matrix.shape[1]} -> {n_comp} dims (ALL DATA)")
                 
-                # Assign PCA results using original indices
+                # Initialize column with None
+                df_pca['audio_pca'] = None
+                
+                # Assign PCA results row by row
                 for i, idx in enumerate(audio_indices):
                     df_pca.at[idx, 'audio_pca'] = audio_pca[i].tolist()
                 
@@ -638,7 +641,10 @@ class UnifiedWindowCacheBuilder:
                     
                     print(f"  Visual PCA: {visual_matrix.shape[1]} -> {n_comp} dims (ALL DATA)")
                 
-                # Assign PCA results using original indices
+                # Initialize column with None
+                df_pca['visual_pca'] = None
+                
+                # Assign PCA results row by row
                 for i, idx in enumerate(visual_indices):
                     df_pca.at[idx, 'visual_pca'] = visual_pca[i].tolist()
                 
